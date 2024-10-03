@@ -1,0 +1,61 @@
+<div class="sign-up-container">
+  <div class="sign-up-card">
+    <h2>Sign-Up</h2>
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username" placeholder="Enter your name" required />
+        @if (signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched &&
+        signUpForm.get('username')?.errors?.['required']) {
+        <div class="error">
+          Please enter an username.
+        </div>
+        }
+      </div>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email" required />
+        @if (signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched &&
+        signUpForm.get('email')?.errors?.['required']) {
+        <div class="error">
+          Please enter an email id.
+        </div>
+        }
+
+        @if (signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched &&
+        signUpForm.get('email')?.errors?.['email']) {
+        <div class="error">
+          Please enter a valid email.
+        </div>
+        }
+      </div>
+
+      <div class="input-group password-group">
+        <label for="password">Password</label>
+        <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+          placeholder="Enter your password" required />
+        <i class="toggle-icon" (click)="togglePassword()">
+          @if (showPassword) {
+          <img src="assets/icons/eye-open.svg" alt="Show Password" />
+          } @else {
+          <img src="assets/icons/eye-closed.svg" alt="Hide Password" />
+
+          }
+        </i>
+        @if(signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched){
+        <div class="error">
+          Password is required.
+        </div>
+        }
+      </div>
+
+      <button type="submit" [disabled]="signUpForm.invalid">Sign Up</button>
+    </form>
+
+    <p class="login-message">
+      Already an existing user?
+      <a [routerLink]="['/login']">Login</a>
+    </p>
+  </div>
+</div>
